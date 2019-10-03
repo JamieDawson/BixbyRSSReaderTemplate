@@ -44,12 +44,6 @@ result-view {
 												}
 											}
 										}
-										on-click {
-											intent {
-												goal: Tag
-												value: Tag(Football)
-											}
-										}
 									}
 								}
 								header {
