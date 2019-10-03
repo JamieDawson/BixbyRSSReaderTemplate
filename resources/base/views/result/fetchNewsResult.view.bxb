@@ -1,20 +1,6 @@
 result-view {
 	match: Info (this)
 	
-	// Creates navigation buttons
-	conversation-drivers {
-		conversation-driver {
-			if (size(this) > 1) {
-				template (Previous Page)
-			}
-		}
-		conversation-driver {
-			if (size(this) > 1) {
-				template (Next page)
-			}
-		}
-	}
-	
 	render {
 		if (size(this) > 1) {
 			list-of (this) {
@@ -22,6 +8,7 @@ result-view {
 				navigation-mode {
 					read-many {
 						page-size (10)
+						with-navigation-conversation-drivers
 						page-content {
 							underflow-statement (This is the first page)
 							overflow-statement (This is the last page)
