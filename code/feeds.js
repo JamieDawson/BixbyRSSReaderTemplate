@@ -10,7 +10,7 @@ module.exports = module.exports = [
     tags: ['the fantasy footballers']
   },
   {
-    url: 'https://www.espn.com/espn/rss/news',
+    url: 'https://www.ketoconnect.net/feed/',
     urlText: 'Click here to see the full story on espn.com',
     text: 'Example Text',
     tags: ['sports', 'espn']
