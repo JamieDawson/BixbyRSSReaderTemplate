@@ -1,0 +1,11 @@
+capsule-info {
+  display-name (RSS Template)
+  dispatch-name (RSS Template)
+  developer-name (Final Boss)
+  icon-asset (icon.png)
+  description (RSS template capsule)
+  search-keywords {
+    keyword (News)
+    keyword (RSS)
+  }
+}
