@@ -16,6 +16,10 @@ structure (Search) {
     type (UrlText)
     min (Required) max (One)
   }
+  property (copyright) {
+    type (Copyright)
+    min (Optional) max (One)
+  }
   features {
     transient
   }

@@ -2,6 +2,7 @@
 // Url: Link to RSS feed xml (url must start with 'https://')
 // Text: What users see in feed selection list
 // Tags: What the user can say to automatically call certain feeds
+// Copyright: Feeds copyright message to use if the feed doesn't have one
 module.exports = module.exports = [
   {
     url: 'https://thefantasyfootballers.libsyn.com/fantasyfootball',
@@ -19,6 +20,7 @@ module.exports = module.exports = [
     url: 'https://www.ketoconnect.net/feed/',
     urlText: 'Click here to see the full story on keto.com',
     text: 'Example Text 2',
+    copyright: 'Copyright https://www.ketoconnect.net/feed/',
     tags: ['keto']
   },
 ]

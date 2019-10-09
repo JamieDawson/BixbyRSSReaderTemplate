@@ -49,6 +49,8 @@ function buildSharedtags(channel, i, search) {
 		ret.link = channel.item[i].link
 	if (channel.copyright)
 		ret.copyright = removeHTML(channel.copyright)
+	else
+		ret.copyright = search.copyright
 	if (typeof channel.description == 'string' && channel.description)
 		ret.feedDescription = removeHTML(channel.description)
 	if (channel.item[i].title)
