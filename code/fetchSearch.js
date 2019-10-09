@@ -1,20 +1,14 @@
 var console = require('console')
-const FEEDS = require("./feeds");
+const feeds = require("./feeds");
 
-module.exports.function = function fetchSportsList (tag) {
+module.exports.function = function fetchSportsList(tag) {
   var ret = []
 
-  feeds = FEEDS
+  feeds.forEach(function (feed) {
+    feed.tags.forEach(function (tags) {
+      (tag && tags.toLowerCase().includes(tag.toLowerCase())) ? ret.push(feed) : 0
+    })
+  })
 
-  for (var i = 0; i < feeds.length; i += 1)
-    if (!tag)
-        ret.push(feeds[i])
-    else
-      for (var j = 0; j < feeds[i].tags.length; j += 1)
-        if (feeds[i].tags[j].toLowerCase().includes(tag.toLowerCase()))
-          ret.push(feeds[i])
-  if (ret.length == 0)
-    ret = feeds
-
-  return ret;
+  return ret.length > 0 ? ret : feeds;
 }
