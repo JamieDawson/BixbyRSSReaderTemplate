@@ -20,18 +20,20 @@ function removeHTML(str) {
 }
 
 // Build thumbnail image
-function buildImage(item) {
+function buildImage(channel, i) {
 	var ret = "icon.png"
-	if ("enclosure" in item && item['itunes:image'])
-		ret = item['itunes:image']['@href']
-	else if (item['media:thumbnail'])
-		ret = item['media:thumbnail']['@url']
-	else if (item.image)
-		ret = item.image
-	else if ("enclosure" in item && item.enclosure['@type'] == "image/jpeg")
-		ret = item.enclosure['@url']
+	if ("enclosure" in channel.item[i] && channel.item[i]['itunes:image'])
+		ret = channel.item[i]['itunes:image']['@href']
+	else if (channel.item[i]['media:thumbnail'])
+		ret = channel.item[i]['media:thumbnail']['@url']
+	else if (channel.item[i].image)
+		ret = channel.item[i].image
+	else if ("enclosure" in channel.item[i] && channel.item[i].enclosure['@type'] == "image/jpeg")
+		ret = channel.item[i].enclosure['@url']
 	if (!ret)
 		ret = "icon.png"
+	if (ret == "icon.png" && channel.image)
+		ret = channel.image[0].url
 	return { url: ret }
 }
 
@@ -42,11 +44,11 @@ function buildSharedtags(channel, i, search) {
 	//console.log(channel.item[i])
 	ret.urlText = search.urlText
 	ret.tag = search.text
+	ret.image = buildImage(channel, i)
 	if (channel.item[i].link)
 		ret.link = channel.item[i].link
 	if (channel.copyright)
 		ret.copyright = removeHTML(channel.copyright)
-	ret.image = buildImage(channel.item[i])
 	if (typeof channel.description == 'string' && channel.description)
 		ret.feedDescription = removeHTML(channel.description)
 	if (channel.item[i].title)
