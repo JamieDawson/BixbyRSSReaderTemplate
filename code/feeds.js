@@ -8,7 +8,7 @@ module.exports = module.exports = [
     url: 'https://thefantasyfootballers.libsyn.com/fantasyfootball',
     urlText: 'Click here to see the full story on thefantasyfootballers.libsyn.com',
     text: 'Example Podcast',
-    tags: ['the fantasy footballers', 'sport']
+    tags: ['the fantasy footballers', 'sport', 'fantasy football']
   },
   {
     url: 'https://www.espn.com/espn/rss/news',
