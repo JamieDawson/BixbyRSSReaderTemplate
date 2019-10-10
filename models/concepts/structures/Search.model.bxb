@@ -20,8 +20,8 @@ structure (Search) {
     type (Copyright)
     min (Optional) max (One)
   }
-  property (des) {
-    type(Des)
+  property (description) {
+    type(Description)
     min (Optional) max (One)
   }
   features {
