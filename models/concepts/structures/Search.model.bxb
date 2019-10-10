@@ -20,6 +20,10 @@ structure (Search) {
     type (Copyright)
     min (Optional) max (One)
   }
+  property (des) {
+    type(Des)
+    min (Optional) max (One)
+  }
   features {
     transient
   }
