@@ -1,6 +1,7 @@
 // Add RSS feeds below
 // Url: Link to RSS feed xml (url must start with 'https://')
 // Text: What users see in feed selection list
+// Des: A description of what this is link contains.
 // Tags: What the user can say to automatically call certain feeds
 // Copyright: Feeds copyright message to use if the feed doesn't have one
 module.exports = module.exports = [
@@ -8,6 +9,7 @@ module.exports = module.exports = [
     url: 'https://thefantasyfootballers.libsyn.com/fantasyfootball',
     urlText: 'Click here to see the full story on thefantasyfootballers.libsyn.com',
     text: 'Example Podcast',
+    des: "Example description.",
     tags: ['the fantasy footballers', 'sport']
   },
   {

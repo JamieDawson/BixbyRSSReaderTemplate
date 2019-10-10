@@ -21,13 +21,35 @@ input-view {
       select-button-text ("Select")
       where-each (this) {
         spoken-summary ("#{value(this.text)}.")
-        cell-card {
-          slot2 {
-            content {
-              primary ("#{value(this.text)}")
+ 
+        title-card{
+          title-area {
+            slot1 {
+              text{
+                value("#{value(this.text)}")
+              }
+            }
+            slot2 {
+              single-line{
+                text {
+                  value("#{value(this.des)}")
+                  style(Legal)
+                }    
+              }
             }
           }
         }
+       
+        
+        // cell-card {
+        //   slot2 {
+        //     content {
+        //       primary ("#{value(this.text)}")
+        //     }
+        //   }
+        // }
+
+
       }
     }
   }

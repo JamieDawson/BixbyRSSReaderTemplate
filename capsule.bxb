@@ -1,5 +1,5 @@
 capsule {
-  id (final_boss.rss_template)
+  id (playground.rss_template)
   version (1.0.1)
   format (3)
   targets {
