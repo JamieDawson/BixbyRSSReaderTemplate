@@ -20,55 +20,65 @@ function removeHTML(str) {
 }
 
 function fetchThumbnailImage(channel, item, search) {
-	var ret
-	if ("enclosure" in item && item['itunes:image'])
-		ret = item['itunes:image']['@href']
-	else if (item['media:thumbnail'])
-		ret = item['media:thumbnail']['@url']
-	else if (item.image)
+	var ret = null
+	if (item.image)
 		ret = item.image
-	else if ("enclosure" in item && item.enclosure['@type'] == "image/jpeg")
-		ret = item.enclosure['@url']
-	else if (channel.image)
-		ret = channel.image.length > 1 ? channel.image[0].url : channel.image.url
-	else if (channel['itunes:image'])
-		ret = channel['itunes:image']['@href']
-	else {
+	else if ("enclosure" in item) {
+		if (item['itunes:image'])
+			ret = item['itunes:image']['@href']
+		else if (item['media:thumbnail'])
+			ret = item['media:thumbnail']['@url']
+		else if (item.enclosure['@type'] == "image/jpeg")
+			ret = item.enclosure['@url']
+	}
+	if (!ret) {
 		var rawText = http.getUrl(search.url, { format: 'text' }).split('item')
 		var matches = []
 		var url = ''
 		rex = /<img[^>]*src='([^']*)/g;
 		for (var i = 0; i < rawText.length; i++) {
-			rawText.splice(i, 1);
+			rawText.splice(i, 1)
 		}
-		while (matches = rex.exec(rawText[g_item])) {
-			url = matches[1]
+		for (var counter = 0; counter < 1; counter++) {
+			while (matches = rex.exec(rawText[g_item])) {
+				url = matches[1]
+			}
 		}
 	}
-	return { url: ret ? ret : url ? url : 'icon.png' }
+	if (url)
+		ret = url
+	if (!ret) {
+		if (channel.image)
+			ret = channel.image.length > 1 ? channel.image[0].url : channel.image.url
+		else if (channel['itunes:image'])
+			ret = channel['itunes:image']['@href']
+	}
+	return { url: ret ? ret : 'icon.png' }
 }
 
 function fetchItemDescription(item, search) {
-	var description
+	var ret
 	if (typeof item.description == 'string'
 		&& item.description
 		&& item.description != 'null')
-		description = removeHTML(item.description)
-	else if (item['itunes:summary'])
-		description = removeHTML(item['itunes:summary'])
-	else {
+		ret = removeHTML(item.description)
+	else if (!ret) {
+		var text = ''
 		var rawText = http.getUrl(search.url, { format: 'text' }).split('item')
 		var matches = []
-		rex = /<p[>^]*([^']*)<\/p>/g;
+		rex = /<\s*p[^>]*>([^<]*)<\s*\/\s*p\s*>/g;
 		for (var i = 0; i < rawText.length; i++) {
 			rawText.splice(i, 1);
 		}
-		console.log(rawText)
 		while (matches = rex.exec(rawText[g_item])) {
-			description = matches[1]
+			text = matches[1]
 		}
+		if (text)
+			ret = text
 	}
-	return description ? removeHTML(description) : "No description"
+	else if (item['itunes:summary'])
+		ret = removeHTML(item['itunes:summary'])
+	return ret ? removeHTML(ret) : "No description"
 }
 
 function buildSharedtags(channel, item, search) {
