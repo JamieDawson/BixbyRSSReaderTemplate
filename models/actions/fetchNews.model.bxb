@@ -17,6 +17,16 @@ action (fetchNews) {
         }
       }
     }
+    input (hasRefreshed) {
+      type (HasRefreshed)
+      min (Required) max (One)
+      default-init {
+        intent {
+          goal: HasRefreshed
+          value: HasRefreshed(false)
+        }
+      }
+    }
   }
   output (Info)
 }

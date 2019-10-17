@@ -1,16 +1,23 @@
 result-view {
-	match: Info (this)
+	match: Info (this) {
+		from-output: fetchNews(action)
+	}
 	
 	conversation-drivers {
 		if(size(this) > 1) {
 			conversation-driver(Repeat)
+		}
+		if (size(this) == 1 && exists(this.audioItem)) {
+			conversation-driver(Play)
+		}
+		if (size(this) == 1 && exists(this.link)) {
+			conversation-driver(Go to website)
 		}
 	}
 
 	render {
 		if (size(this) > 1) {
 			list-of (this) {
-				// Handles hands free navigation options
 				navigation-mode {
 					read-many {
 						page-size (5)
@@ -23,7 +30,6 @@ result-view {
 								}
 								}
 								where-each (this) {
-									// Added newlines to have Bixby pause between titles
 									spoken-summary ("The #{value(this.place)} one #{value(this.title)} ...")
 									thumbnail-card {
 										image-url("#{value(this.image.url)}")
@@ -50,6 +56,12 @@ result-view {
 												}
 											}
 										}
+										// on-click {
+										// 	intent {
+										// 		goal: Info
+										// 		value: $expr(this)
+										// 	}
+										// }
 									}
 								}
 								header {
@@ -82,7 +94,7 @@ result-view {
 								}
 								}
 								}
-								if (size(this) == 1) {
+								else-if (size(this) == 1) {
 									layout {
 										section {
 											content {

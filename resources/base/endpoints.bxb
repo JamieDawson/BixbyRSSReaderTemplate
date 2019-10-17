@@ -5,7 +5,7 @@ endpoints {
       local-endpoint (fetchSearch.js)
       }
       action-endpoint (fetchNews) {
-        accepted-inputs (tag, search)
+        accepted-inputs (hasRefreshed, tag, search)
         local-endpoint (fetchNews.js)
       }
       action-endpoint (playSound) {
