@@ -70,6 +70,11 @@ function fetchItemDescription(item, search) {
 	return ret ? removeHTML(ret) : "No description"
 }
 
+function returnPlacement(num) {
+	var places = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh','eighth', 'ninth', 'tenth']
+	return places[num]
+}
+
 function buildSharedtags(channel, item, search) {
 	return {
 		urlText: search.urlText,
@@ -81,10 +86,7 @@ function buildSharedtags(channel, item, search) {
 		title: item.title ? removeHTML(item.title) : "No title",
 		date: item.pubDate ? item.pubDate : "Unknown",
 		description: fetchItemDescription(item, search),
-		place: ((g_item) => {
-			var places = ['First', 'Second', 'Third', 'Fourth', 'Fifth', 'Sixth', 'Seventh','Eighth', 'Ninth', 'Tenth']
-			return places[g_item % 5 == 0 ? 0 : g_item % 5]
-		})
+		place: returnPlacement(g_item == 4 || (g_item + 1) % 5 == 0 ? 4 : ((g_item + 1) % 5) - 1)
 	}
 }
 
