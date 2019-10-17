@@ -49,7 +49,7 @@ structure (Info) {
     type (UrlText)
     min (Required) max (One)
   }
-  features {
-    transient
-  }
+  // features {
+  //   transient
+  // }
 }

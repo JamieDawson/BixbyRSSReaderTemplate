@@ -1,13 +1,19 @@
 result-view {
 	match: Info (this)
 	
+	conversation-drivers {
+		if(size(this) > 1) {
+			conversation-driver(Repeat)
+		}
+	}
+
 	render {
 		if (size(this) > 1) {
 			list-of (this) {
 				// Handles hands free navigation options
 				navigation-mode {
 					read-many {
-						page-size (10)
+						page-size (5)
 						with-navigation-conversation-drivers
 						page-content {
 							underflow-statement (This is the first page)
@@ -100,7 +106,7 @@ result-view {
 														on-click {
 															intent {
 																goal: playSound
-																value: $expr(this.audioItem)
+																value: $expr(this)
 															}
 														}
 													}

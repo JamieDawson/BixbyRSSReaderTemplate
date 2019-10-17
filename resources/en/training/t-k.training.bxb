@@ -3,6 +3,11 @@ train (t-k26z62vvk7rdjatv0t016hb43) {
   plan (Y2BmkEvLzEvMiU/KLy7WKyouji9JzS3ISSxJ1QtOTSxKzmBQxiWfllqSnAFVJI1LUUhiOgMTAyMQMwBJRgYQYIJgAA==)
   last-modified (1571118573007)
 }
+train (t-k4agu2e9vw1k13omgie7k6e84) {
+  utterance ([g:playSound:continue:Info] play)
+  plan (Y2BlkE7KrEiq1EssTcnMD8hJrEwt0nMEsT1LUnMZ1AuAIulF+aV5KXoZ+cnZqZXxeanlxfHJiXmJKYl6INlgkCRuU/LS8vFboYTfCrABLAyMDEwMzECaAciCQBgAswE=)
+  last-modified (1571177959733)
+}
 train (t-k5rzgvlt0so337to8upy7nsim) {
   utterance ("[g:fetchNews] Assist me in finding (wired guides)[v:Tag] headlines")
   plan (Y2BhkEzLzEvMiU/KLy7WKyoujk9LTU0p1vPMS8tnkMMqlZZakpzhl1pezCCNVT44NbEoOYNBAqtkSGI6AzMDIwMTkGQA0iAIAUxAFlAMAA==)
@@ -22,4 +27,9 @@ train (t-krsxbz2xrsu5fr85j47daduu1) {
   utterance ([g:fetchNews] Show me all headlines)
   plan (Y2BmkEzLzEvMiU/KLy7WKyoujk9LTU0p1vPMS8tnkMMqlZZakpzhl1pezCCNVT44NbEoOYOBiYERiBmAJCMDA4wGAA==)
   last-modified (1567748016963)
+}
+train (t-kt7nj8sa2bpfox55xjdg9e5ra) {
+  utterance ([g:OpenUrl:continue:Info] go to website)
+  plan (Y2BiUCzISaxML8ovzUvRy8hPzk6tjM9LLS+OT07MS0xJ1AstymFQxa/EvyA1D6SMEQgZoBhIAgA=)
+  last-modified (1571244660959)
 }
