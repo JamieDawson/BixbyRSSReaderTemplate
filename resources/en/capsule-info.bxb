@@ -1,9 +1,9 @@
 capsule-info {
-  display-name (RSS Template)
-  dispatch-name (RSS Template)
-  developer-name (Final Boss)
+  display-name (CBC Top Stories)
+  dispatch-name (CBC Top Stories)
+  developer-name (CBC)
   icon-asset (icon.png)
-  description (RSS template capsule)
+  description ("A Capsule that displays the top stories from CBC. \n All content is sourced from CBC.ca public feed. Source: https://rss.cbc.ca/lineup/topstories.xml")
   search-keywords {
     keyword (News)
     keyword (RSS)

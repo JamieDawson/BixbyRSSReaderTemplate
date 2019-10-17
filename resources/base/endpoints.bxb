@@ -5,17 +5,12 @@ endpoints {
       local-endpoint (fetchSearch.js)
       }
       action-endpoint (fetchNews) {
-        accepted-inputs (hasRefreshed, tag, search)
+        accepted-inputs (tag, search)
         local-endpoint (fetchNews.js)
       }
       action-endpoint (playSound) {
-        accepted-inputs (audioItem, soundToPlay)
+        accepted-inputs (soundToPlay, audioItem)
         local-endpoint (playSound.js)
-      }
-
-      action-endpoint (OpenUrl) {
-        accepted-inputs (info) 
-        local-endpoint (openUrl.js)  
       }
     }
   }

@@ -6,36 +6,21 @@ var g_item = 0
 function removeHTML(str) {
 	if (!str || (str === ''))
 		return
+
 	// Remove html tags and hyperlinks
 	str = str.toString().replace(/<[^>]*>/g, '').split('[&#8230;]')[0];
+
 	// Replace SGML with ascii symbols
 	HTMLCODES.forEach(code => {
 		while (str.includes(code.key))
 			str = str.replace(code.key, code.value)
 	})
+
 	return str
-}
-
-function pullCDATA(search, key) {
-	var rawText = http.getUrl(search.url, { format: 'text' }).split('item')
-	var matches = []
-	var text = null
-	const regexList = {
-		image: /<img[^>]*src='([^']*)/g,
-		description: /<\s*p[^>]*>([^<]*)<\s*\/\s*p\s*>/g
-	}
-
-	for (var i = 0; i < rawText.length; i++)
-		rawText.splice(i, 1)
-	while (matches = regexList[key].exec(rawText[g_item]))
-		text = matches[1]
-	return (text)
 }
 
 function fetchThumbnailImage(channel, item, search) {
 	var ret = null
-	var url = pullCDATA(search, 'image')
-	
 	if (item.image)
 		ret = item.image
 	else if ("enclosure" in item) {
@@ -46,7 +31,21 @@ function fetchThumbnailImage(channel, item, search) {
 		else if (item.enclosure['@type'] == "image/jpeg")
 			ret = item.enclosure['@url']
 	}
-	if (!ret && url)
+	if (!ret) {
+		var rawText = http.getUrl(search.url, { format: 'text' }).split('item')
+		var matches = []
+		var url = ''
+		rex = /<img[^>]*src='([^']*)/g;
+		for (var i = 0; i < rawText.length; i++) {
+			rawText.splice(i, 1)
+		}
+		for (var counter = 0; counter < 1; counter++) {
+			while (matches = rex.exec(rawText[g_item])) {
+				url = matches[1]
+			}
+		}
+	}
+	if (url)
 		ret = url
 	if (!ret) {
 		if (channel.image)
@@ -58,21 +57,28 @@ function fetchThumbnailImage(channel, item, search) {
 }
 
 function fetchItemDescription(item, search) {
-	var ret = null
-	var text = pullCDATA(search, 'description')
-
-	if (typeof item.description == 'string' && item.description && item.description != 'null')
+	var ret
+	if (typeof item.description == 'string'
+		&& item.description
+		&& item.description != 'null')
 		ret = removeHTML(item.description)
-	else if (!ret && text)
-		ret = text
+	else if (!ret) {
+		var text = ''
+		var rawText = http.getUrl(search.url, { format: 'text' }).split('item')
+		var matches = []
+		rex = /<\s*p[^>]*>([^<]*)<\s*\/\s*p\s*>/g;
+		for (var i = 0; i < rawText.length; i++) {
+			rawText.splice(i, 1);
+		}
+		while (matches = rex.exec(rawText[g_item])) {
+			text = matches[1]
+		}
+		if (text)
+			ret = text
+	}
 	else if (item['itunes:summary'])
 		ret = removeHTML(item['itunes:summary'])
 	return ret ? removeHTML(ret) : "No description"
-}
-
-function returnPlacement(num) {
-	var places = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh','eighth', 'ninth', 'tenth']
-	return places[num]
 }
 
 function buildSharedtags(channel, item, search) {
@@ -85,15 +91,17 @@ function buildSharedtags(channel, item, search) {
 		feedDescription: typeof channel.description == 'string' && channel.description ? removeHTML(channel.description) : null,
 		title: item.title ? removeHTML(item.title) : "No title",
 		date: item.pubDate ? item.pubDate : "Unknown",
-		description: fetchItemDescription(item, search),
-		place: returnPlacement(g_item == 4 || (g_item + 1) % 5 == 0 ? 4 : ((g_item + 1) % 5) - 1)
+		description: fetchItemDescription(item, search)
 	}
 }
 
 function fetchAudioInfo(item, image) {
 	return {
 		id: 1,
-		stream: [{ url: item['enclosure']['@url'], format: "mp3" }],
+		stream: [{
+			url: item['enclosure']['@url'],
+			format: "mp3"
+		}],
 		albumArtUrl: image,
 		title: item.title ? item.title : "No title",
 		subtitle: item['itunes:subtitle'] ? item['itunes:subtitle'] : "No subtitle",
@@ -102,7 +110,7 @@ function fetchAudioInfo(item, image) {
 }
 
 module.exports.function = function fetchNews(tag, search) {
-	const data = http.getUrl(search.url, { format: 'xmljs' })
+	var data = http.getUrl(search.url, { format: 'xmljs' })
 	var ret = []
 	data.rss.channel.item.forEach(item => {
 		ret.push(buildSharedtags(data.rss.channel, item, search))

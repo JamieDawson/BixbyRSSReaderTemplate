@@ -49,8 +49,7 @@ structure (Info) {
     type (UrlText)
     min (Required) max (One)
   }
-  property (place) {
-    type (Place)
-    min (Required) max (One)
+  features {
+    transient
   }
 }

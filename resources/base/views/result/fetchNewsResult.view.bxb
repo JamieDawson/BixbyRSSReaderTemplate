@@ -1,26 +1,13 @@
 result-view {
-	match: Info (this) {
-		from-output: fetchNews(action)
-	}
+	match: Info (this)
 	
-	conversation-drivers {
-		if(size(this) > 1) {
-			conversation-driver(Repeat)
-		}
-		if (size(this) == 1 && exists(this.audioItem)) {
-			conversation-driver(Play)
-		}
-		if (size(this) == 1 && exists(this.link)) {
-			conversation-driver(Go to website)
-		}
-	}
-
 	render {
 		if (size(this) > 1) {
 			list-of (this) {
+				// Handles hands free navigation options
 				navigation-mode {
 					read-many {
-						page-size (5)
+						page-size (10)
 						with-navigation-conversation-drivers
 						page-content {
 							underflow-statement (This is the first page)
@@ -30,7 +17,8 @@ result-view {
 								}
 								}
 								where-each (this) {
-									spoken-summary ("The #{value(this.place)} one #{value(this.title)} ...")
+									// Added newlines to have Bixby pause between titles
+									spoken-summary ("#{value(this.title)}\n\n\n\n\n\n\n\n\n\n")
 									thumbnail-card {
 										image-url("#{value(this.image.url)}")
 										title-area {
@@ -56,12 +44,6 @@ result-view {
 												}
 											}
 										}
-										// on-click {
-										// 	intent {
-										// 		goal: Info
-										// 		value: $expr(this)
-										// 	}
-										// }
 									}
 								}
 								header {
@@ -94,7 +76,7 @@ result-view {
 								}
 								}
 								}
-								else-if (size(this) == 1) {
+								if (size(this) == 1) {
 									layout {
 										section {
 											content {
@@ -118,7 +100,7 @@ result-view {
 														on-click {
 															intent {
 																goal: playSound
-																value: $expr(this)
+																value: $expr(this.audioItem)
 															}
 														}
 													}

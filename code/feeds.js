@@ -1,16 +1,18 @@
-  
 // Add RSS feeds below
-// Url: Link to RSS feed xml (url must start with 'https://')
-// Text: What users see in feed selection list
-// Description: A description of what this is link contains.
-// Tags: What the user can say to automatically call certain feeds
-// Copyright: Feeds copyright message to use if the feed doesn't have one
+// Url: Link to RSS feed xml (url must start with 'https://') (Required)
+// urlText: Text  for hyperlink shown at bottom of article (Required)
+// Text: What users see in feed selection list (Required)
+// Description: A description of what this is link contains.(Optional)
+// Tags: What the user can say to automatically call certain feeds (Required)
+// image: image shown next to items in category list (can be a local path or directory) (Optional)
+// Copyright: Feeds copyright message to use if the feed doesn't have one (Optional)
 module.exports = module.exports = [
   {
-    url: 'https://www.cbc.ca/cmlink/rss-topstories',
-    urlText: 'Click here to see the full story on www.cbc.ca',
-    text: 'Hockey Night in Canada',
-    description: "Host Rob Pizzo tackles all things NHL. Check in with pros and the characters around them at the cornerstone of Canadian sports. CBC`s Hockey Night in Canada podcast skips the stats for stories about life in the bigs. Plus classic moments from HNICs past..",
-    tags: ['cbc', 'hockey', 'sports', 'nhl', 'canada', 'Canadian Broadcasting Corporation']
+    url: 'https://rss.cbc.ca/lineup/topstories.xml',
+    urlText: 'Click here to see the full story on cbc.ca',
+    text: 'CBC Top Stories',
+    image: './icon.png',
+    description: "The top news stories from CBC.",
+    tags: ['canada', 'cbc', 'world news', 'top stories']
   }
 ]

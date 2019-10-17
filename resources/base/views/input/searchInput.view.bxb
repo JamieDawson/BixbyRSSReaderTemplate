@@ -23,6 +23,8 @@ input-view {
 								spoken-summary ("#{value(this.text)}.")
 								if (exists(this.image)) {
 									thumbnail-card {
+										image-object-fit (Contain)
+										image-background-color (White)
 										image-url("#{value(this.image.url)}")
 										title-area {
 											slot1 {
